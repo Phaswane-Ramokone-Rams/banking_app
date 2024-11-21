@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>DiamondDistrictBank/Transaction History</title>
+
+    <style>
+        
+    </style>
+
+</head>
+<body>
+    <h1>Transaction History</h1>
+    <ul>
+        {% for txn in transactions %}
+        <li>{{ txn['type'] }}: ${{ txn['amount'] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

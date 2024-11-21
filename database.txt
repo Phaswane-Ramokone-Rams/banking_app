@@ -1,0 +1,2 @@
+{'name': 'Phaswane Ramokone', 'phone': '0716264608', 'id_number': '0104285565081', 'username': 'Rams', 'password': 'password', 'account_number': '1091146279', 'balance': 0.18000000000029104, 'transactions': [{'type': 'Deposit', 'amount': 12000.0}, {'type': 'Deposit', 'amount': 0.18}, {'type': 'Withdrawal', 'amount': 12000.0}]}
+{'name': 'test01', 'phone': '0987777777', 'id_number': '094893888477', 'username': 'tester', 'password': '12345', 'account_number': '3060116382', 'balance': 0, 'transactions': []}
