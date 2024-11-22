@@ -37,7 +37,7 @@
         button {
             width: 100%;
             padding: 10px;
-            background: rgba(0, 0, 0, 0.5);
+            background: #0056b3;
             color: white;
             border: none;
             border-radius: 5px;
@@ -46,7 +46,7 @@
             font-size: 18px;
         }
         button:hover {
-            background: rgba(168, 167, 167, 0.5);
+            background: #004494;
         }
         .message {
             text-align: center;
@@ -100,6 +100,35 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        /* Button Styles */
+        .register-button, .forgot-pin-button {
+           display: inline-block;
+           padding: 12px 20px;
+           margin-top: 15px;
+          text-align: center;
+          text-decoration: none;
+         background: #0056b3;
+         color: white;
+         border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+       }
+
+       .register-button:hover, .forgot-pin-button:hover {
+         background: #004494;
+        }
+
+       .register-button:active, .forgot-pin-button:active {
+          background: #003366;
+        }
+
+       .register-button:focus, .forgot-pin-button:focus {
+         outline: none;
+         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
     </style>
 </head>
 <body>
@@ -123,8 +152,9 @@
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <a href="/register" class="register-link">Create Account</a>
-        <a href="#" class="register-link">Forgot PIN</a>
+        <a href="/register" class="register-button">Create Account</a>
+        <a href="#" class="forgot-pin-button">Forgot PIN</a>
+      
 
         <section id="services">
             <div class="container1">

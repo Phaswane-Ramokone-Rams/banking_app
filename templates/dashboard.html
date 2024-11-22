@@ -123,6 +123,41 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+
+        /* Button Styles */
+        .logout-pin-button {
+           display: inline-block;
+           padding: 12px 20px;
+           margin-top: 15px;
+          text-align: center;
+          text-decoration: none;
+         background: #0056b3;
+         color: white;
+         border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+       }
+
+       .logout-pin-button:hover {
+         background: #004494;
+        }
+
+       .logout-pin-button:active {
+          background: #003366;
+        }
+
+       .logout-pin-button:focus {
+         outline: none;
+         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        ul{
+            list-style-type: none;
+        }
+        p{
+            font-size: 25px;
+        }
     </style>
 </head>
 <body>
@@ -153,14 +188,14 @@
             <button type="submit">Submit</button>
         </form>
 
-        <h2>Your Accounts</h2>
+        <h2>Your Account</h2>
         <ul>
             {% for account in user_accounts %}
-            <li><a href="/transactions/{{ account['account_number'] }}">MAIN ACCOUNT: {{ account['account_number'] }}</a></li>
+            <li><a  class="logout-pin-button" href="/transactions/{{ account['account_number'] }}">MAIN ACCOUNT: {{ account['account_number'] }}</a></li>
             {% endfor %}
         </ul>
 
-        <button></button><a class="logout" href="/logout">Logout</a></button>
+        <a href="/logout" class="logout-pin-button" >Logout</a>
     </div>
 </body>
 </html>

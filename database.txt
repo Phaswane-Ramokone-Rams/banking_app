@@ -9,3 +9,5 @@
 {'name': 'Rams09', 'phone': '0697553612', 'id_number': '9904285565081', 'username': 'Rms09', 'password': 'pass1234', 'account_number': '1018939523', 'balance': 0, 'transactions': []}
 {'name': 'Rams10', 'phone': '0697553612', 'id_number': '99042855650819', 'username': 'Rams10', 'password': '1', 'account_number': '1683278816', 'balance': 0, 'transactions': []}
 {'name': 'Rams11', 'phone': '0', 'id_number': '0104285565081', 'username': 'Rams11', 'password': '789567', 'account_number': '2386719485', 'balance': 0, 'transactions': []}
+{'name': 'Rams12', 'phone': '0987654567', 'id_number': '1234567898765', 'username': 'Rams12', 'password': 'pass1234', 'account_number': '2845896987', 'balance': 0, 'transactions': []}
+{'name': 'Rams20', 'phone': '0797553612', 'id_number': '9904285565081', 'username': 'Rams20', 'password': '1234', 'account_number': '4250280471', 'balance': 0, 'transactions': []}
