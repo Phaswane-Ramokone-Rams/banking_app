@@ -76,7 +76,7 @@ def login():
             session['user_accounts'] = user_accounts
             return redirect('/dashboard')
         else:
-            flash('Invalid username or password.', 'danger')
+            flash('Invalid username or password. Please try again.', 'danger')
 
     return render_template('login.html')
 
@@ -90,30 +90,57 @@ def dashboard():
     
     if request.method == 'POST':
         action = request.form['action']
-        amount = float(request.form['amount'])
+        amount = request.form['amount']
+
+        # Validate amount
+        try:
+            amount = float(amount)
+        except ValueError:
+            flash('Invalid amount. Please enter a valid number.', 'danger')
+            return redirect('/dashboard')
+        
+        if amount <= 0:
+            flash('Amount must be a positive number.', 'danger')
+            return redirect('/dashboard')
+
         accounts = read_database()
 
-        # Locate the account being modified
+        # Find the current user's account in the database
         account_to_modify = next(acc for acc in accounts if acc['account_number'] == current_account['account_number'])
 
         if action == 'deposit':
+            # Add the deposit amount to the account balance
             account_to_modify['balance'] += amount
-            account_to_modify['transactions'].append({'type': 'Deposit', 'amount': amount})
-            flash(f'Successfully deposited ${amount:.2f}', 'success')
+            account_to_modify['transactions'].append({
+                'type': 'Deposit',
+                'money_in': amount,
+                'money_out': 0,
+                'balance': account_to_modify['balance']
+            })
+            flash(f'Successfully deposited R{amount:.2f}', 'success')
         
         elif action == 'withdraw':
             if amount > account_to_modify['balance']:
-                flash('Insufficient funds.', 'danger')
+                flash('Insufficient funds. Withdrawal amount exceeds balance.', 'danger')
             else:
                 account_to_modify['balance'] -= amount
-                account_to_modify['transactions'].append({'type': 'Withdrawal', 'amount': amount})
-                flash(f'Successfully withdrew ${amount:.2f}', 'success')
+                account_to_modify['transactions'].append({
+                    'type': 'Withdrawal',
+                    'money_in': 0,
+                    'money_out': amount,
+                    'balance': account_to_modify['balance']
+                })
+                flash(f'Successfully withdrew R{amount:.2f}', 'success')
 
-        # Update the database
+        # Update the database with the modified account data
         update_database(accounts)
+        
+        # Update session data to reflect the new balance
         session['user_accounts'] = [acc for acc in accounts if acc['username'] == session['user']['username']]
+        session['user'] = next(acc for acc in accounts if acc['account_number'] == current_account['account_number'])
 
-    return render_template('dashboard.html', user=current_account, user_accounts=user_accounts)
+    return render_template('dashboard.html', user=session['user'], user_accounts=session['user_accounts'])
+
 
 @app.route('/transactions/<account_number>')
 def transactions(account_number):
@@ -133,5 +160,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-

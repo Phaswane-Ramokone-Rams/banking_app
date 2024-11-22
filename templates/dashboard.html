@@ -1,58 +1,166 @@
 <!DOCTYPE html>
-<html>
-<head><title>DiamondDistrictBank/Dashboard</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondDistrictBank/Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #5a5a5c, #e2e0e0);
+        }
+        input[type="text"], input[type="password"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .container h1 {
+            text-align: center;
+        }
+        @keyframes slide {
+            from { margin-left: -100%; }
+            to { margin-left: 0; }
+        }
+        h1 {
+            animation: slide 1s ease-out;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+        }
+        .balance {
+            padding-left: 30px;
+            padding-bottom: 10px;
+        }
+        p {
+            font-size: 20px;
+        }
+        .log-out {
+            padding-left: 30px;
+        }
+        a {
+            font-size: 20px;
+        }
 
-<style>
-          body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #5a5a5c, #e2e0e0);
-   }
-   .container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    }
-    .container h1{
-        text-align: center;
-    }
-</style>
+        select {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
 
+        select:hover {
+            border-color: #73abeb;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        h2 {
+            padding-left: 50px;
+        }
+        .logout {
+            padding-left: 150px;
+        }
+        button {
+            width: 100%; /* Make it take the full width of the form */
+            padding: 15px; /* Add padding for better appearance */
+            margin: 10px 0; /* Add margin for spacing */
+            font-size: 18px; /* Increase font size */
+            background-color: #73abeb; /* Set a background color */
+            color: white; /* Text color */
+            border: none; /* Remove default border */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Change cursor to pointer */
+            transition: background-color 0.3s, transform 0.2s; /* Add smooth transition */
+        }
+
+        button:hover {
+            background-color: #5a95c1; /* Darken background on hover */
+            transform: scale(1.05); /* Slightly enlarge the button */
+        }
+
+        button:active {
+            background-color: #468cc0; /* Darker background when clicked */
+        }
+
+        /* Flash message styling */
+        .flash {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 18px;
+            width: 100%;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
 <body>
-
     <div class="container">
+        <h1><i>DiamondDistrictBank</i></h1>
+        <h1>Welcome<br>{{ user['name'] }}</h1>
+        <p>Account Number:<br> {{ user['account_number'] }}</p>
+        <p>Balance:<br> R{{ user['balance'] }}</p>
 
-        <h1>Welcome<br> {{ user['name'] }}</h1>
-        <p>Account Number: {{ user['account_number'] }}</p>
-        <p>Balance: R{{ user['balance'] }}</p>
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-             <h2>Make a Transaction</h2>
-         <form method="POST">
-
-            <select name="action">
-              <option value="deposit">Deposit</option>
-              <option value="withdraw">Withdraw</option>
+        <h2>Make a Transaction</h2>
+        <form method="POST">
+            <select name="action" required>
+                <option value="deposit">Deposit</option>
+                <option value="withdraw">Withdraw</option>
             </select>
 
-              <input type="number" step="0.01" name="amount" placeholder="Amount" required>
-                 <button type="submit">Submit</button>
-         </form>
+            <!-- Updated input to prevent negative values -->
+            <input type="number" step="0.01" name="amount" placeholder="Amount" min="0.01" required>
+            <button type="submit">Submit</button>
+        </form>
 
-          <h2>Your Accounts</h2>
-      <ul>
-        {% for account in user_accounts %}
-        <li><a href="/transactions/{{ account['account_number'] }}">{{ account['account_number'] }}</a></li>
-        {% endfor %}
-      </ul>
+        <h2>Your Accounts</h2>
+        <ul>
+            {% for account in user_accounts %}
+            <li><a href="/transactions/{{ account['account_number'] }}">MAIN ACCOUNT: {{ account['account_number'] }}</a></li>
+            {% endfor %}
+        </ul>
 
-       <a href="/logout">Logout</a>
-
+        <button></button><a class="logout" href="/logout">Logout</a></button>
     </div>
 </body>
 </html>

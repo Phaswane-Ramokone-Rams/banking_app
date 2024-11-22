@@ -3,67 +3,88 @@
 <head><title>DiamondDistrictBank/Register</title>
 
 <style>
-          body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #5a5a5c, #e2e0e0);
-   }
-    .container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to right, #5a5a5c, #e2e0e0);
     }
-    .container h1{
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    .container h1 {
         text-align: center;
     }
-    .container button{
+    .container button {
         background-color: rgba(255, 255, 255);
     }
     input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 20px;
-   }
-   form{
-    padding-right: 20px;
-    color: black;
-   }
-   button {
-    width: 100%;
-    padding: 10px;
-    background: red;
-    color: blue;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    font-size: 18px;
-}
-button:hover {
-    background: rgba(26, 25, 25, 0.5);
-}
-
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+    form {
+        padding-right: 20px;
+        color: black;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background: red;
+        color: blue;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+    button:hover {
+        background: rgba(26, 25, 25, 0.5);
+    }
 </style>
+
+<script>
+    function validateForm() {
+        const idNumber = document.forms["registerForm"]["id_number"].value;
+        const password = document.forms["registerForm"]["password"].value;
+
+        // Validate ID number (must be 13 digits)
+        if (idNumber.length !== 13 || isNaN(idNumber)) {
+            alert("ID/Passport Number must be exactly 13 digits.");
+            return false;
+        }
+
+        // Validate password (at least 4 characters)
+        if (password.length < 4) {
+            alert("Password must be at least 4 characters long.");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </head>
 <body>
     <div class="container">
-       <h1>Register</h1>
-       <form method="POST">
-          <input type="text" name="name" placeholder="Name and Surname" required><br>
-          <input type="text" name="phone" placeholder="Phone Number" required><br>
-          <input type="text" name="id_number" placeholder="ID/Passport Number" required><br>
-          <input type="text" name="username" placeholder="Username" required><br>
-          <input type="password" name="password" placeholder="Password" required><br>
-          <button type="submit"><i>Create Account</i></button>
+        <h1><i>DiamondDistrictBank</i></h1>
+        <h1>Register</h1>
+        <form name="registerForm" method="POST" onsubmit="return validateForm()">
+            <input type="text" name="name" placeholder="Name and Surname" required><br>
+            <input type="text" name="phone" placeholder="Phone Number" required><br>
+            <input type="text" name="id_number" placeholder="ID/Passport Number" required pattern="\d{13}" title="ID number must be 13 digits"><br>
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required minlength="4"><br>
+            <button type="submit"><i>Create Account</i></button>
         </form>
     </div>
 

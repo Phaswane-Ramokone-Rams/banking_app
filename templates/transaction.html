@@ -3,17 +3,41 @@
 <head><title>DiamondDistrictBank/Transaction History</title>
 
     <style>
-        
+         body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to right, #5a5a5c, #e2e0e0);
+    }
+    
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+    }
+    .container h1 {
+        text-align: center;
+    }
+    .dash{
+        padding-left: 100px;
+        font-size: 25px;
+    }
     </style>
 
 </head>
 <body>
-    <h1>Transaction History</h1>
-    <ul>
-        {% for txn in transactions %}
-        <li>{{ txn['type'] }}: ${{ txn['amount'] }}</li>
-        {% endfor %}
-    </ul>
-    <a href="/dashboard">Back to Dashboard</a>
+    <div class="container">
+      <h1>Transaction History</h1>
+        <ul>
+               {% for txn in transactions %}
+              <li>{{ txn['type'] }}: ${{ txn['amount'] }}</li>
+              {% endfor %}
+        </ul>
+               <a class="dash" href="/dashboard">Back to Dashboard</a>
+    </div>
 </body>
 </html>
