@@ -1,142 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DiamondDistrictBank/Login</title>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondDistrictBank | Secure Login</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background: linear-gradient(to right, #5a5a5c, #e2e0e0);
         }
+
         .container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            max-width: 400px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: block;
         }
-        form {
-            padding-right: 20px;
+
+        .input-group {
+            position: relative;
         }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 45%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #0056b3;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
+            border-radius: 8px;
             font-size: 18px;
-        }
-        button:hover {
-            background: #004494;
-        }
-        .message {
-            text-align: center;
-            margin: 10px 0;
-        }
-        .register-link {
-            text-align: center;
-            display: block;
-            margin-top: 15px;
-            font-size: 20px;
-        }
-        .services {
-            display: flex;
-            justify-content: space-around;
-            padding-top: 60px;
-        }
-        .service img {
-            height: 50px;
-            width: 50px;
-        }
-        .service {
-            flex: 1;
-            padding: 1rem;
-            margin: 0 1rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 5px;
             cursor: pointer;
-            transition: 0.5;
-        }
-        .service h3 {
-            text-align: center;
-        }
-        .service img {
-            padding-left: 40px;
+            transition: 0.3s ease-in-out;
         }
 
-        /* Flash message styling */
+        button:hover {
+            background: #003f80;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .remember-me input {
+            margin-right: 10px;
+        }
+
+        .links {
+            margin-top: 10px;
+        }
+
+        .links a {
+            display: inline-block;
+            text-decoration: none;
+            color: #0056b3;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
         .flash {
             padding: 10px;
             margin: 10px 0;
-            border-radius: 5px;
-            font-size: 18px;
-            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
             text-align: center;
         }
+
         .flash.success {
             background-color: #d4edda;
             color: #155724;
         }
+
         .flash.danger {
             background-color: #f8d7da;
             color: #721c24;
         }
-        /* Button Styles */
-        .register-button, .forgot-pin-button {
-           display: inline-block;
-           padding: 12px 20px;
-           margin-top: 15px;
-          text-align: center;
-          text-decoration: none;
-         background: #0056b3;
-         color: white;
-         border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 100%;
-        box-sizing: border-box;
-       }
 
-       .register-button:hover, .forgot-pin-button:hover {
-         background: #004494;
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
         }
-
-       .register-button:active, .forgot-pin-button:active {
-          background: #003366;
-        }
-
-       .register-button:focus, .forgot-pin-button:focus {
-         outline: none;
-         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1><i>DiamondDistrictBank</i></h1>
-        <h1>Login</h1>
+        <h2>Secure Login</h2>
 
-        <!-- Display Flash Messages for Login Errors -->
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="message">
@@ -148,32 +145,39 @@
         {% endwith %}
 
         <form method="POST">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember me</label>
+            </div>
+
             <button type="submit">Login</button>
         </form>
-        <a href="/register" class="register-button">Create Account</a>
-        <a href="#" class="forgot-pin-button">Forgot PIN</a>
-      
 
-        <section id="services">
-            <div class="container1">
-                
-                <div class="services">
-                    <div class="service">
-                        <img src="pics/scan_to_pay.jpg" alt="pic">
-                        <h3>Scan to Pay</h3>  
-                    </div>
-
-                    <div class="service">
-                        <img src="pics/transfer_money.png" alt="pic">
-                        <h3>Send Cash</h3>
-                    </div>
-                  
-                </div>
-                
-            </div>
-        </section>
+        <div class="links">
+            <a href="/register">Create Account</a> | 
+            <a href="#">Forgot PIN?</a>
+        </div>
     </div>
+
+    <script>
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
 </body>
 </html>

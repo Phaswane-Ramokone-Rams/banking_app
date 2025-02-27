@@ -11,3 +11,4 @@
 {'name': 'Rams11', 'phone': '0', 'id_number': '0104285565081', 'username': 'Rams11', 'password': '789567', 'account_number': '2386719485', 'balance': 0, 'transactions': []}
 {'name': 'Rams12', 'phone': '0987654567', 'id_number': '1234567898765', 'username': 'Rams12', 'password': 'pass1234', 'account_number': '2845896987', 'balance': 0, 'transactions': []}
 {'name': 'Rams20', 'phone': '0797553612', 'id_number': '9904285565081', 'username': 'Rams20', 'password': '1234', 'account_number': '4250280471', 'balance': 0, 'transactions': []}
+{'name': 'p', 'phone': '0697553612', 'id_number': '9404285565081', 'username': 'p', 'password': 'Ram@50', 'account_number': '1408255231', 'balance': 0.0, 'transactions': [{'type': 'Deposit', 'money_in': 500.0, 'money_out': 0, 'balance': 500.0}, {'type': 'Withdrawal', 'money_in': 0, 'money_out': 500.0, 'balance': 0.0}]}

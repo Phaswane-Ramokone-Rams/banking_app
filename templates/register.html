@@ -1,93 +1,165 @@
 <!DOCTYPE html>
-<html>
-<head><title>DiamondDistrictBank/Register</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondDistrictBank | Register</title>
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(to right, #5a5a5c, #e2e0e0);
-    }
-    .container {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        background-color: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-    }
-    .container h1 {
-        text-align: center;
-    }
-    .container button {
-        background-color: rgba(255, 255, 255);
-    }
-    input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 20px;
-    }
-    form {
-        padding-right: 20px;
-        color: black;
-    }
-    button {
-        width: 100%;
-        padding: 10px;
-        background: #0056b3;
-        color: rgb(155, 146, 146);
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        font-size: 18px;
-    
-    }
-    button:hover {
-        background: #004494;
-    }
-</style>
-
-<script>
-    function validateForm() {
-        const idNumber = document.forms["registerForm"]["id_number"].value;
-        const password = document.forms["registerForm"]["password"].value;
-
-        // Validate ID number (must be 13 digits)
-        if (idNumber.length !== 13 || isNaN(idNumber)) {
-            alert("ID/Passport Number must be exactly 13 digits.");
-            return false;
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #5a5a5c, #e2e0e0);
         }
 
-        // Validate password (at least 4 characters)
-        if (password.length < 4) {
-            alert("Password must be at least 4 characters long.");
-            return false;
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            text-align: center;
         }
 
-        return true;
-    }
-</script>
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
 
+        input[type="text"], input[type="password"], input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            display: block;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #003f80;
+        }
+
+        .links {
+            margin-top: 10px;
+        }
+
+        .links a {
+            display: inline-block;
+            text-decoration: none;
+            color: #0056b3;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+            const form = document.forms["registerForm"];
+            const idNumber = form["id_number"].value;
+            const phone = form["phone"].value;
+            const password = form["password"].value;
+
+            // Validate ID number (must be 13 digits)
+            if (idNumber.length !== 13 || isNaN(idNumber)) {
+                alert("ID/Passport Number must be exactly 13 digits.");
+                return false;
+            }
+
+            // Validate phone number (must be 10 digits)
+            if (phone.length !== 10 || isNaN(phone)) {
+                alert("Phone number must be exactly 10 digits.");
+                return false;
+            }
+
+            // Validate password (must contain at least 6 characters, a number, and a special character)
+            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+            if (!passwordPattern.test(password)) {
+                alert("Password must be at least 6 characters long and include a number and a special character.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1><i>DiamondDistrictBank</i></h1>
-        <h1>Register</h1>
-        <form name="registerForm" method="POST" onsubmit="return validateForm()">
-            <input type="text" name="name" placeholder="Name and Surname" required><br>
-            <input type="text" name="phone" placeholder="Phone Number" required><br>
-            <input type="text" name="id_number" placeholder="ID/Passport Number" required pattern="\d{13}" title="ID number must be 13 digits"><br>
-            <input type="text" name="username" placeholder="Username" required><br>
-            <input type="password" name="password" placeholder="Password" required minlength="4"><br>
-            <button type="submit"><i>Create Account</i></button>
-        </form>
-    </div>
+        <h2>Register</h2>
 
+        <form name="registerForm" method="POST" onsubmit="return validateForm()">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required pattern="\d{10}" title="Phone number must be 10 digits">
+            <input type="text" name="id_number" placeholder="ID/Passport Number" required pattern="\d{13}" title="ID number must be 13 digits">
+            <input type="text" name="username" placeholder="Username" required>
+
+            <div class="input-group">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="links">
+            <a href="/login">Already have an account? Login</a>
+        </div>
+    </div>
 </body>
 </html>

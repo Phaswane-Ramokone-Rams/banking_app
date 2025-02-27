@@ -1,43 +1,54 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>DiamondDistrictBank/Transaction History</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiamondDistrictBank | Transaction History</title>
+
     <style>
+        /* General Styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(to right, #5a5a5c, #e2e0e0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        
+
         .container {
             max-width: 800px;
-            margin: 50px auto;
+            width: 90%;
             padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
-        }
-        
-        .container h1 {
             text-align: center;
         }
 
+        h1 {
+            color: #333;
+            font-size: 26px;
+        }
+
+        /* Transaction Sections */
         .transaction-sections {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
+            justify-content: center;
             margin-top: 20px;
         }
 
         .transaction-section {
             flex: 1;
             min-width: 180px;
+            max-width: 220px;
             padding: 15px;
-            background-color: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
         }
@@ -45,6 +56,7 @@
         .transaction-section h2 {
             font-size: 18px;
             margin-bottom: 10px;
+            color: #0056b3;
         }
 
         .transaction-section ul {
@@ -55,99 +67,91 @@
 
         .transaction-section ul li {
             margin: 5px 0;
+            font-size: 16px;
+            font-weight: bold;
         }
 
-        .dash {
-            display: block;
-            margin: 20px auto;
-            text-align: center;
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px;
+            margin-top: 20px;
             font-size: 18px;
-            color: #0056b3;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
             text-decoration: none;
+            transition: 0.3s;
         }
 
-        .dash:hover {
-            text-decoration: underline;
-        }
-          /* Button Styles */
-      .dashboard-pin-button {
-           display: inline-block;
-           padding: 12px 20px;
-           margin-top: 15px;
-          text-align: center;
-          text-decoration: none;
-         background: #0056b3;
-         color: white;
-         border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-        width: 100%;
-        box-sizing: border-box;
-       }
-
-       .dashboard-pin-button:hover {
-         background: #004494;
+        .btn:hover {
+            background: #004494;
+            transform: scale(1.05);
         }
 
-       .dashboard-pin-button:active {
-          background: #003366;
+        .btn:active {
+            background: #003366;
         }
 
-       .dashboard-button:focus {
-         outline: none;
-         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Transaction History</h1>
+        <h1>📜 Transaction History</h1>
 
         <div class="transaction-sections">
             <!-- Money In Section -->
             <div class="transaction-section">
-                <h2>Money In</h2>
+                <h2>💰 Money In</h2>
                 <ul>
                     {% for txn in transactions if txn['type'] == 'Money In' %}
-                        <li>${{ txn['amount'] }}</li>
+                        <li>R{{ txn['amount'] }}</li>
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- Money Out Section -->
             <div class="transaction-section">
-                <h2>Money Out</h2>
+                <h2>💸 Money Out</h2>
                 <ul>
                     {% for txn in transactions if txn['type'] == 'Money Out' %}
-                        <li>${{ txn['amount'] }}</li>
+                        <li>R{{ txn['amount'] }}</li>
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- Deposit Section -->
             <div class="transaction-section">
-                <h2>Deposit</h2>
+                <h2>🏦 Deposit</h2>
                 <ul>
                     {% for txn in transactions if txn['type'] == 'Deposit' %}
-                        <li>${{ txn['amount'] }}</li>
+                        <li>R{{ txn['amount'] }}</li>
                     {% endfor %}
                 </ul>
             </div>
 
             <!-- Withdraw Section -->
             <div class="transaction-section">
-                <h2>Withdraw</h2>
+                <h2>🏧 Withdraw</h2>
                 <ul>
                     {% for txn in transactions if txn['type'] == 'Withdraw' %}
-                        <li>${{ txn['amount'] }}</li>
+                        <li>R{{ txn['amount'] }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
 
-        <a class="dash" href="/dashboard">Back to Dashboard</a>
-        <a href="/dashboard" class="dashboard-pin-button">DashBoard</a>
+        <a href="/dashboard" class="btn">⬅ Back to Dashboard</a>
     </div>
 </body>
 </html>
-
